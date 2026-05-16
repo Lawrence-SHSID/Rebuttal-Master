@@ -1,10 +1,10 @@
 import Link from "next/link";
 
 import { HomeForm } from "@/app/_components/home-form";
-import { getTechniques } from "@/lib/techniques";
+import { getLogicalErrors } from "@/lib/logical-errors";
 
 export default function Home() {
-  const techniques = getTechniques();
+  const errors = getLogicalErrors();
 
   return (
     <div className="flex flex-1 flex-col items-center px-4 py-16 sm:py-24">
@@ -17,11 +17,11 @@ export default function Home() {
             Practice English rebuttals
           </h1>
           <p className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-400">
-            Pick a debate tactic, read how it works, then answer flawed
-            arguments on real motions. Get AI feedback on your rebuttal.
+            Pick a classical logical error, read how it works, then rebut flawed
+            arguments on real debate motions. Get AI feedback on your rebuttal.
           </p>
         </div>
-        <HomeForm techniques={techniques} />
+        <HomeForm errors={errors} />
         <p className="text-center text-xs text-zinc-500 dark:text-zinc-500 sm:text-left">
           Feedback uses NVIDIA Nemotron 3 Super via OpenRouter — add{" "}
           <code className="rounded bg-zinc-200 px-1 py-0.5 text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200">

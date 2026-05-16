@@ -3,10 +3,10 @@ import { OpenRouter } from "@openrouter/sdk";
 import { resolveFeedbackModel } from "@/lib/model-options";
 
 export type FeedbackInput = {
-  techniqueTitle: string;
-  techniqueSummary: string;
+  errorTitle: string;
+  errorExplanation: string;
+  simpleExplanation: string;
   motionText: string;
-  stance: "pro" | "con";
   flawedArgument: string;
   userRebuttal: string;
 };
@@ -33,24 +33,19 @@ const SYSTEM = `You are an experienced English debate coach for upper-primary an
 Return ONLY valid JSON (no markdown fences) with this shape:
 {"score":<1-10 integer>,"analysis":"<2-5 sentences>","strengths":["<short>","..."],"suggestions":["<short>","..."]}
 Rules:
-- score: integer 1–10 for how effective the student's rebuttal is against the flawed argument, given the motion and their assigned side (pro/con).
-- analysis: specific, encouraging, plain English; mention logic, clash, and whether they addressed the flaw.
+- score: integer 1–10 for how effectively the student identifies and rebuts the logical error in the opponent's argument, given the motion.
+- analysis: specific, encouraging, plain English; mention whether they named the flaw, explained the gap in reasoning, and used the motion.
 - strengths / suggestions: max 4 items each, short strings.
 - Do not quote the entire motion; stay under 400 words total JSON value length if possible.`;
 
 function buildUserMessage(input: FeedbackInput): string {
-  const side =
-    input.stance === "pro"
-      ? "Proposition (support the motion)"
-      : "Opposition (oppose the motion)";
-  return `Debate technique being practiced: ${input.techniqueTitle}
-Technique notes: ${input.techniqueSummary}
+  return `Logical error being practiced: ${input.errorTitle}
+Explanation: ${input.errorExplanation}
+How to spot it: ${input.simpleExplanation}
 
 Motion: ${input.motionText}
 
-Student side: ${side}
-
-Opponent's flawed argument (for practice — it deliberately misuses rhetoric or logic):
+Opponent's flawed argument (contains the logical error above):
 ${input.flawedArgument}
 
 Student's rebuttal:

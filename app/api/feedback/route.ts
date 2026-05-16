@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server";
 
-import { getTechniqueById } from "@/lib/techniques";
+import { getLogicalErrorById } from "@/lib/logical-errors";
 import { scoreRebuttal } from "@/lib/openrouter-feedback";
 
 const MAX_LEN = 8000;
 
 type Body = {
-  techniqueId?: string;
+  errorId?: string;
   motionText?: string;
-  stance?: string;
   flawedArgument?: string;
   userRebuttal?: string;
 };
@@ -21,15 +20,14 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const techniqueId = String(body.techniqueId ?? "").trim();
+  const errorId = String(body.errorId ?? "").trim();
   const motionText = String(body.motionText ?? "").trim();
-  const stance = body.stance === "con" ? "con" : "pro";
   const flawedArgument = String(body.flawedArgument ?? "").trim();
   const userRebuttal = String(body.userRebuttal ?? "").trim();
 
-  if (!techniqueId || !motionText || !flawedArgument) {
+  if (!errorId || !motionText || !flawedArgument) {
     return NextResponse.json(
-      { error: "techniqueId, motionText, and flawedArgument are required" },
+      { error: "errorId, motionText, and flawedArgument are required" },
       { status: 400 },
     );
   }
@@ -43,17 +41,17 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Input too long" }, { status: 400 });
   }
 
-  const technique = getTechniqueById(techniqueId);
-  if (!technique) {
-    return NextResponse.json({ error: "Unknown technique" }, { status: 400 });
+  const error = getLogicalErrorById(errorId);
+  if (!error) {
+    return NextResponse.json({ error: "Unknown logical error" }, { status: 400 });
   }
 
   try {
     const { model: usedModel, feedback } = await scoreRebuttal({
-      techniqueTitle: technique.title,
-      techniqueSummary: `${technique.shortDefinition} ${technique.howToSpot}`,
+      errorTitle: error.title,
+      errorExplanation: error.explanation,
+      simpleExplanation: error.simpleExplanation,
       motionText,
-      stance,
       flawedArgument,
       userRebuttal,
     });
@@ -64,7 +62,7 @@ export async function POST(req: Request) {
     return NextResponse.json(
       {
         error: isKey
-          ? "Missing OPENROUTER_API_KEY. Add it to web/.env.local (see .env.example), save, then restart npm run dev. If the key is in the parent folder, use ../.env.local or rely on next.config merge."
+          ? "Missing OPENROUTER_API_KEY. Add it to web/.env.local (see .env.example), save, then restart npm run dev."
           : msg,
       },
       { status: isKey ? 503 : 502 },

@@ -1,0 +1,95 @@
+{
+  "errors": [
+    {
+      "id": "straw-man-attack",
+      "title": "Straw Man Attack",
+      "explanation": "A debater changes or exaggerates the other side's argument into something easier to attack.",
+      "simpleExplanation": "\"You changed our idea into something more extreme.\"",
+      "exampleLines": [
+        "Person A:",
+        "\"Students should have less homework.\"",
+        "Person B:",
+        "\"So you want students to stop learning completely?\""
+      ],
+      "exampleCount": 2,
+      "practiceable": true
+    },
+    {
+      "id": "hasty-generalization",
+      "title": "Hasty Generalization",
+      "explanation": "A debater uses one or a few examples to make a conclusion about everyone or everything.",
+      "simpleExplanation": "\"One example does not prove the whole situation.\"",
+      "exampleLines": [
+        "\"My friend hates reading, so reading is useless.\""
+      ],
+      "exampleCount": 4,
+      "practiceable": true
+    },
+    {
+      "id": "false-cause",
+      "title": "False Cause",
+      "explanation": "A debater says one thing caused another thing without enough proof.",
+      "simpleExplanation": "\"Just because two things happen together does not mean one caused the other.\"",
+      "exampleLines": [
+        "\"Students started using tablets, and grades dropped, so tablets caused bad grades.\""
+      ],
+      "exampleCount": 2,
+      "practiceable": true
+    },
+    {
+      "id": "slippery-slope",
+      "title": "Slippery Slope",
+      "explanation": "A debater says a small action will lead to a huge disaster without proving it.",
+      "simpleExplanation": "\"They jumped from a small problem to a huge result.\"",
+      "exampleLines": [
+        "\"If students skip one homework assignment, soon nobody will study anymore.\""
+      ],
+      "exampleCount": 3,
+      "practiceable": true
+    },
+    {
+      "id": "black-or-white-thinking",
+      "title": "Black-or-White Thinking",
+      "explanation": "A debater pretends there are only two choices when there are actually many possibilities.",
+      "simpleExplanation": "\"The issue is not only one side or the other.\"",
+      "exampleLines": [
+        "\"Either students do community service, or they become selfish.\""
+      ],
+      "exampleCount": 5,
+      "practiceable": true
+    },
+    {
+      "id": "circular-reasoning",
+      "title": "Circular Reasoning",
+      "explanation": "A debater repeats the same idea instead of actually proving it.",
+      "simpleExplanation": "\"They repeated the claim instead of explaining it.\"",
+      "exampleLines": [
+        "\"Reading is important because books matter.\""
+      ],
+      "exampleCount": 0,
+      "practiceable": false
+    },
+    {
+      "id": "overstatement-exaggeration",
+      "title": "Overstatement / Exaggeration",
+      "explanation": "A debater makes the argument too extreme by using words like \"always,\" \"never,\" or \"everyone.\"",
+      "simpleExplanation": "\"The argument is too absolute.\"",
+      "exampleLines": [
+        "\"Fast fashion always harms everyone.\""
+      ],
+      "exampleCount": 8,
+      "practiceable": true
+    },
+    {
+      "id": "missing-link",
+      "title": "Missing Link",
+      "explanation": "A debater skips important reasoning steps between the claim and the conclusion.",
+      "simpleExplanation": "\"They did not explain how Point A leads to Point B.\"",
+      "exampleLines": [
+        "\"Debate improves speaking, so students will become future leaders.\""
+      ],
+      "exampleCount": 4,
+      "practiceable": true
+    }
+  ]
+}

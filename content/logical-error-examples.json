@@ -1,0 +1,172 @@
+{
+  "examples": [
+    {
+      "id": "children-should-be-allowed-to-decide-their-own-b-slippery-slope",
+      "errorId": "slippery-slope",
+      "motionText": "Children should be allowed to decide their own bedtime.",
+      "flawedArgument": "If children choose bedtime, soon no child will ever sleep properly again."
+    },
+    {
+      "id": "children-should-be-allowed-to-decide-their-own-b-black-or-white-thinking",
+      "errorId": "black-or-white-thinking",
+      "motionText": "Children should be allowed to decide their own bedtime.",
+      "flawedArgument": "Either parents control bedtime or children become unhealthy."
+    },
+    {
+      "id": "children-should-be-allowed-to-decide-their-own-b-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Children should be allowed to decide their own bedtime.",
+      "flawedArgument": "Kids always know the best bedtime for themselves."
+    },
+    {
+      "id": "parents-should-limit-their-kids-screen-time-false-cause",
+      "errorId": "false-cause",
+      "motionText": "Parents should limit their kids' screen time.",
+      "flawedArgument": "Children use screens more, so screens caused all behavior problems."
+    },
+    {
+      "id": "parents-should-limit-their-kids-screen-time-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Parents should limit their kids' screen time.",
+      "flawedArgument": "Screens completely destroy children's brains."
+    },
+    {
+      "id": "parents-should-limit-their-kids-screen-time-hasty-generalization",
+      "errorId": "hasty-generalization",
+      "motionText": "Parents should limit their kids' screen time.",
+      "flawedArgument": "My cousin got addicted to games, so all kids will."
+    },
+    {
+      "id": "year-round-schooling-is-better-than-the-traditio-hasty-generalization",
+      "errorId": "hasty-generalization",
+      "motionText": "Year-round schooling is better than the traditional school calendar.",
+      "flawedArgument": "One school improved grades, so year-round schooling is always better."
+    },
+    {
+      "id": "year-round-schooling-is-better-than-the-traditio-missing-link",
+      "errorId": "missing-link",
+      "motionText": "Year-round schooling is better than the traditional school calendar.",
+      "flawedArgument": "Year-round schooling changes the schedule, so students become more successful."
+    },
+    {
+      "id": "year-round-schooling-is-better-than-the-traditio-black-or-white-thinking",
+      "errorId": "black-or-white-thinking",
+      "motionText": "Year-round schooling is better than the traditional school calendar.",
+      "flawedArgument": "Either schools switch to year-round schooling or education will fail."
+    },
+    {
+      "id": "classrooms-should-have-no-more-than-20-students-false-cause",
+      "errorId": "false-cause",
+      "motionText": "Classrooms should have no more than 20 students.",
+      "flawedArgument": "One small class had good grades, so small classes automatically improve learning."
+    },
+    {
+      "id": "classrooms-should-have-no-more-than-20-students-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Classrooms should have no more than 20 students.",
+      "flawedArgument": "Large classrooms never work."
+    },
+    {
+      "id": "classrooms-should-have-no-more-than-20-students-missing-link",
+      "errorId": "missing-link",
+      "motionText": "Classrooms should have no more than 20 students.",
+      "flawedArgument": "Smaller classes mean better education without explaining why."
+    },
+    {
+      "id": "kids-should-learn-how-to-grow-their-own-food-missing-link",
+      "errorId": "missing-link",
+      "motionText": "Kids should learn how to grow their own food.",
+      "flawedArgument": "Gardening teaches responsibility, so children will become better adults."
+    },
+    {
+      "id": "kids-should-learn-how-to-grow-their-own-food-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Kids should learn how to grow their own food.",
+      "flawedArgument": "Every child needs farming skills to survive."
+    },
+    {
+      "id": "primary-school-students-should-be-encouraged-to-hasty-generalization",
+      "errorId": "hasty-generalization",
+      "motionText": "Primary school students should be encouraged to read English comics.",
+      "flawedArgument": "One student improved English through comics, so comics work for everyone."
+    },
+    {
+      "id": "primary-school-students-should-be-encouraged-to-straw-man-attack",
+      "errorId": "straw-man-attack",
+      "motionText": "Primary school students should be encouraged to read English comics.",
+      "flawedArgument": "You just want children to stop reading real books."
+    },
+    {
+      "id": "primary-school-students-should-learn-english-gra-black-or-white-thinking",
+      "errorId": "black-or-white-thinking",
+      "motionText": "Primary school students should learn English grammar before vocabulary.",
+      "flawedArgument": "Students must learn grammar first or they can never learn English."
+    },
+    {
+      "id": "primary-school-students-should-learn-english-gra-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Primary school students should learn English grammar before vocabulary.",
+      "flawedArgument": "Vocabulary is useless without grammar."
+    },
+    {
+      "id": "ai-can-be-trusted-to-control-self-driving-cars-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "AI can be trusted to control self-driving cars.",
+      "flawedArgument": "AI cars never make mistakes."
+    },
+    {
+      "id": "short-video-apps-should-be-banned-slippery-slope",
+      "errorId": "slippery-slope",
+      "motionText": "Short video apps should be banned.",
+      "flawedArgument": "If we allow short videos, children will stop studying forever."
+    },
+    {
+      "id": "students-should-only-study-for-half-the-day-and-missing-link",
+      "errorId": "missing-link",
+      "motionText": "Students should only study for half the day and spend the other half outdoors.",
+      "flawedArgument": "More outdoor time means all students will become healthier and smarter."
+    },
+    {
+      "id": "school-cafeterias-should-let-students-choose-the-black-or-white-thinking",
+      "errorId": "black-or-white-thinking",
+      "motionText": "School cafeterias should let students choose the menu.",
+      "flawedArgument": "Either students choose the menu or schools ignore student health."
+    },
+    {
+      "id": "ai-astronauts-are-better-suited-for-dangerous-mi-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "AI astronauts are better suited for dangerous missions than humans.",
+      "flawedArgument": "Humans are completely useless in dangerous space missions."
+    },
+    {
+      "id": "ai-and-programming-courses-are-more-important-th-straw-man-attack",
+      "errorId": "straw-man-attack",
+      "motionText": "AI and programming courses are more important than traditional labor courses.",
+      "flawedArgument": "You want schools to get rid of all art and sports classes."
+    },
+    {
+      "id": "it-s-better-to-read-one-book-deeply-than-many-bo-hasty-generalization",
+      "errorId": "hasty-generalization",
+      "motionText": "It's better to read one book deeply than many books quickly.",
+      "flawedArgument": "I learned a lot from one book, so deep reading is always better."
+    },
+    {
+      "id": "electric-vehicles-should-replace-gasoline-cars-b-slippery-slope",
+      "errorId": "slippery-slope",
+      "motionText": "Electric vehicles should replace gasoline cars by 2030.",
+      "flawedArgument": "If we do not switch now, the planet will become unlivable immediately."
+    },
+    {
+      "id": "education-relies-on-testing-too-much-overstatement-exaggeration",
+      "errorId": "overstatement-exaggeration",
+      "motionText": "Education relies on testing too much.",
+      "flawedArgument": "Schools only care about test scores."
+    },
+    {
+      "id": "zoos-should-be-banned-black-or-white-thinking",
+      "errorId": "black-or-white-thinking",
+      "motionText": "Zoos should be banned.",
+      "flawedArgument": "Either we ban zoos or animals will always suffer."
+    }
+  ]
+}

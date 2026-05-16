@@ -3,10 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "content:wsda": "python scripts/parse-wsda-docx.py && node scripts/merge-motions.mjs",
-    "content:esdp": "python scripts/parse-esdp-text.py && node scripts/merge-motions.mjs && node scripts/build-practice-items.mjs",
-    "content:flaws": "node scripts/build-practice-items.mjs",
-    "content:merge-motions": "node scripts/merge-motions.mjs",
+    "content:logical-errors": "python scripts/parse-logical-errors-docx.py",
+    "verify:logical-errors": "npx tsx scripts/verify-logical-errors.ts",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

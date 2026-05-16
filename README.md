@@ -1,11 +1,11 @@
 # Rebuttal Master
 
-English rebuttal practice for debate: pick a **technique** (from Tyndall-style tactics + common fallacies), read a short explanation, then practice **rebutting flawed arguments** paired with real **motions** (ESDP, WSDA impromptu, international seed). Optional **Feedback** calls OpenRouter (default model: NVIDIA Nemotron 3 Super — see `lib/model-options.ts`).
+English rebuttal practice for debate: pick a **classical logical error**, read a short explanation, then practice **rebutting flawed arguments** on curated **motions**. Optional **Feedback** calls OpenRouter (default model: NVIDIA Nemotron 3 Super — see `lib/model-options.ts`).
 
 ## Prerequisites
 
 - Node.js 20+
-- For motion pipelines: Python 3 with dependencies used by `scripts/parse-*.py` (see script headers / repo root docs)
+- Python 3 (only if you regenerate content from the Word documents)
 
 ## Local setup
 
@@ -17,7 +17,7 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000): home → technique → practice (1–10 items) → Feedback per answer.
+Open [http://localhost:3000](http://localhost:3000): home → logical error → set practice count (1–10, capped by question bank) → write rebuttals → **Feedback** per answer.
 
 ## Environment variables
 
@@ -34,18 +34,23 @@ Never commit `.env.local`. The app can also read `OPENROUTER_*` from a parent-di
 2. **Project → Settings → Environment Variables**: add `OPENROUTER_API_KEY` (Production / Preview as needed). Add `OPENROUTER_MODEL` only if you want a non-default model.
 3. Deploy. The feedback route is server-side only; the key is not exposed to the browser.
 
-## Debate content & practice generation
+## Debate content
 
-- **`content/motions.json`** — merged international seed (`motions-international.json`) + WSDA impromptu (`wsda-impromptu-parsed.json`, from `WSDA*.docx`) + ESDP (`esdp-motions-parsed.json`, from `ESDP*.pdf`). Merge script: `scripts/merge-motions.mjs`.
-- **`content/flaw-templates.json`** — six flawed-argument **templates** per technique (placeholder `__M__`). Built by `scripts/build-practice-items.mjs`. At runtime, `lib/practice.ts` substitutes the motion text for `__M__`, so every motion can pair with every technique without a huge static matrix.
+Source documents (repo root, sibling of `web/`):
 
-Regenerate after editing sources or templates:
+- `Classical Logical Errors.docx` — definitions and examples for 8 logical errors
+- `Logical_Error_Examples.docx` — motions and flawed arguments per error type
+
+Parsed JSON (committed in `web/content/`):
+
+- **`content/logical-errors.json`** — error definitions (`practiceable` is false when there are no examples, e.g. Circular Reasoning)
+- **`content/logical-error-examples.json`** — motion + flawed argument cards tagged by `errorId`
+
+Regenerate after editing the docx files:
 
 ```bash
-npm run content:wsda        # parse WSDA*.docx → merge motions
-npm run content:esdp        # parse ESDP*.pdf → merge motions → rebuild flaw-templates
-npm run content:merge-motions   # merge only (if JSON slices already updated)
-npm run content:flaws       # rebuild flaw-templates only (after editing build-practice-items.mjs)
+npm run content:logical-errors
+npm run verify:logical-errors   # optional smoke test
 ```
 
 ## Scripts
@@ -56,6 +61,8 @@ npm run content:flaws       # rebuild flaw-templates only (after editing build-p
 | `npm run build` | Production build |
 | `npm run start` | Run production server locally |
 | `npm run lint` | ESLint |
+| `npm run content:logical-errors` | Parse docx → JSON in `content/` |
+| `npm run verify:logical-errors` | Quick check of `lib/logical-errors.ts` |
 
 ## Tech stack
 

@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-import { hydrateItem, pickPracticeItems } from "@/lib/practice";
+import type { LogicalErrorExample } from "@/lib/logical-errors";
 
 type Props = {
-  techniqueId: string;
-  techniqueTitle: string;
-  count: number;
+  errorId: string;
+  errorTitle: string;
+  items: LogicalErrorExample[];
 };
 
 type FeedbackState =
@@ -31,40 +31,41 @@ function formatModelForUi(modelId: string): string {
   return modelId;
 }
 
-export function PracticeSession({
-  techniqueId,
-  techniqueTitle,
-  count,
-}: Props) {
-  const items = useMemo(
-    () => pickPracticeItems(techniqueId, count),
-    [techniqueId, count],
-  );
+export function PracticeSession({ errorId, errorTitle, items }: Props) {
+  const count = items.length;
   const [index, setIndex] = useState(0);
-  const [draft, setDraft] = useState("");
+  const [hasText, setHasText] = useState(false);
   const [feedback, setFeedback] = useState<FeedbackState>({ status: "idle" });
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const current = items[index];
-  const hydrated = useMemo(() => {
-    if (!current) return null;
-    return hydrateItem(current);
-  }, [current]);
+  const isLast = index >= count - 1;
 
-  const isLast = index >= items.length - 1;
+  function readRebuttal(): string {
+    return (textareaRef.current?.value ?? "").trim();
+  }
+
+  function syncHasText() {
+    setHasText(readRebuttal().length > 0);
+  }
+
+  useEffect(() => {
+    syncHasText();
+  }, [index]);
 
   async function onFeedback() {
-    if (!hydrated || !draft.trim()) return;
+    const userRebuttal = readRebuttal();
+    if (!current || !userRebuttal) return;
     setFeedback({ status: "loading" });
     try {
       const res = await fetch("/api/feedback", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          techniqueId,
-          motionText: hydrated.motion.text,
-          stance: hydrated.item.stance,
-          flawedArgument: hydrated.item.flawedArgument,
-          userRebuttal: draft.trim(),
+          errorId,
+          motionText: current.motionText,
+          flawedArgument: current.flawedArgument,
+          userRebuttal,
         }),
       });
       const data = (await res.json()) as {
@@ -98,49 +99,35 @@ export function PracticeSession({
   function nextQuestion() {
     if (isLast) return;
     setIndex((i) => i + 1);
-    setDraft("");
+    if (textareaRef.current) textareaRef.current.value = "";
+    setHasText(false);
     setFeedback({ status: "idle" });
   }
 
-  if (!hydrated) {
+  if (!current) {
     return null;
   }
-
-  const { motion, item } = hydrated;
 
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-8 px-4 py-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <Link
-          href={`/technique/${techniqueId}`}
+          href={`/logical-error/${errorId}`}
           className="text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"
         >
-          ← Technique & setup
+          &larr; Setup
         </Link>
         <span className="text-sm text-zinc-500 dark:text-zinc-400">
-          Question {index + 1} of {items.length}
+          Question {index + 1} of {count}
         </span>
       </div>
 
       <div>
         <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-50">
-          {techniqueTitle}
+          {errorTitle}
         </h1>
         <p className="mt-1 text-sm text-zinc-500">
-          Motion source: {motion.sourceName}
-          {motion.sourceUrl ? (
-            <>
-              {" · "}
-              <a
-                href={motion.sourceUrl}
-                className="text-indigo-600 underline dark:text-indigo-400"
-                target="_blank"
-                rel="noreferrer"
-              >
-                link
-              </a>
-            </>
-          ) : null}
+          Spot this logical error and write a clear rebuttal.
         </p>
       </div>
 
@@ -149,20 +136,14 @@ export function PracticeSession({
           Motion
         </h2>
         <p className="text-base leading-relaxed text-zinc-900 dark:text-zinc-100">
-          {motion.text}
-        </p>
-        <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
-          Your side:{" "}
-          {item.stance === "pro"
-            ? "Proposition — defend the motion"
-            : "Opposition — argue against the motion"}
+          {current.motionText}
         </p>
         <div>
           <h2 className="text-xs font-semibold uppercase tracking-wide text-zinc-500">
-            Opponent&apos;s flawed argument (for you to rebut)
+            Flawed argument (for you to rebut)
           </h2>
           <p className="mt-2 text-base leading-relaxed text-zinc-800 dark:text-zinc-200">
-            {item.flawedArgument}
+            {current.flawedArgument}
           </p>
         </div>
       </section>
@@ -175,11 +156,13 @@ export function PracticeSession({
           Your rebuttal
         </label>
         <textarea
+          ref={textareaRef}
           id="rebuttal"
           rows={8}
-          value={draft}
-          onChange={(e) => setDraft(e.target.value)}
-          placeholder="Write in English. Point out the flaw, use the motion, and stay respectful."
+          defaultValue=""
+          onInput={syncHasText}
+          onChange={syncHasText}
+          placeholder="Write in English. Name the logical error, explain why the argument fails, and use the motion."
           className="w-full rounded-lg border border-zinc-300 bg-white px-3 py-2 text-base text-zinc-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 dark:border-zinc-600 dark:bg-zinc-950 dark:text-zinc-100"
         />
       </div>
@@ -187,11 +170,11 @@ export function PracticeSession({
       <div className="flex flex-wrap gap-3">
         <button
           type="button"
-          onClick={onFeedback}
-          disabled={!draft.trim() || feedback.status === "loading"}
-          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+          onClick={() => void onFeedback()}
+          disabled={!hasText || feedback.status === "loading"}
+          className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {feedback.status === "loading" ? "Scoring…" : "Feedback"}
+          {feedback.status === "loading" ? "Scoring..." : "Feedback"}
         </button>
         {feedback.status === "ok" ? (
           <button
@@ -218,7 +201,7 @@ export function PracticeSession({
               {feedback.score}
             </span>
             <span className="text-sm text-emerald-800/80 dark:text-emerald-200/80">
-              / 10 · {formatModelForUi(feedback.model)}
+              / 10 &middot; {formatModelForUi(feedback.model)}
             </span>
           </div>
           <p className="leading-relaxed text-zinc-900 dark:text-zinc-100">
@@ -255,7 +238,7 @@ export function PracticeSession({
         <p className="text-center text-sm text-zinc-600 dark:text-zinc-400">
           Session complete.{" "}
           <Link href="/" className="font-medium text-indigo-600 dark:text-indigo-400">
-            Practice another technique
+            Practice another logical error
           </Link>
         </p>
       ) : null}
